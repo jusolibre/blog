@@ -8,20 +8,20 @@
 <body>
 
 
-	<form classs="form-group" action="test.php" method="get" name="formulaire">
-		Auteur: <input type="text" name="auteur" /><br/>
-		Titre: <input type="text" name="titre" /><br/>
-		contenu: <textarea name="contenu" rows="10" cols="50"></textarea><br/>
-		<input type="submit" value="envoyer"/>
+	<form classs="form-group" action="test.php" method="post" name="formulaire">
+		Auteur: <input class="form-control" type="text" name="auteur" /><br/>
+		Titre: <input class="form-control" type="text" name="titre" /><br/>
+		contenu: <textarea type="text" class="form-control" name="contenu" rows="3"></textarea><br/>
+		<button type="submit" class="btn btn-primary">Envoyer</button> 
 	</form>
 
 
 
 	<?php
 
-	$auteur = (isset($auteur)) ? $_GET['auteur'] : null;
-	$titre = (isset($titre)) ? $_GET['titre'] : null;
-	$contenu = (isset($contenu)) ? $_GET['contenu'] : null;
+	$auteur = (isset($auteur)) ? $_POST['auteur'] : null;
+	$titre = (isset($titre)) ? $_POST['titre'] : null;
+	$contenu = (isset($contenu)) ? $_POST['contenu'] : null;
 
 	if(isset($auteur) && isset($titre) && isset($contenu)){
 		echo $auteur." ".$titre." ".$contenu;}
@@ -39,16 +39,16 @@
 			die('Erreur: Le contenu est pas envoyé');
 		}
 
-		if (isset($_GET['auteur'])) {    
-			$auteur = htmlspecialchars($_GET['auteur']);
+		if (isset($_POST['auteur'])) {    
+			$auteur = htmlspecialchars($_POST['auteur']);
 		}
 
 
-		if (isset($_GET['titre'])) {
-			$titre = htmlspecialchars($_GET['titre']);
+		if (isset($_POST['titre'])) {
+			$titre = htmlspecialchars($_POST['titre']);
 		}
-		if (isset($_GET['contenu'])) {
-			$contenu = htmlspecialchars($_GET['contenu']);
+		if (isset($_POST['contenu'])) {
+			$contenu = htmlspecialchars($_POST['contenu']);
 		}
 // On ajoute une entrée dans la table avec une requête préparé et en utilisant des marqueurs auteurinatifs.
 
@@ -59,8 +59,6 @@
 			"titre" => $titre,
 			"contenu" => $contenu,
 			));
-
-		echo 'contenu bien envoyé !';
 
 		$req->closeCursor();
 
